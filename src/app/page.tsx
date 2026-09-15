@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeControls } from "@/components/theme-controls";
+import { AccountBadge } from "@/components/profile/account-badge";
+import { HomeWorkspace } from "@/components/home/home-workspace";
 
 const steps = [
   ["01", "Nhập tài liệu", "Paste nội dung hoặc chọn tệp TXT, Markdown, CSV, DOCX."],
@@ -15,7 +17,7 @@ export default function Home() {
       <header className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <Link href="/" className="text-xl font-bold tracking-tight">Quiz<span className="text-primary">Forge</span></Link>
         <div className="flex items-center gap-2">
-          <Link href="/profile" className="hidden px-2 text-sm font-medium text-muted-foreground hover:text-foreground sm:block">Đăng nhập</Link>
+          <AccountBadge />
           <ThemeControls />
           <Link href="/import" className={buttonVariants()}>Tạo bộ câu hỏi</Link>
         </div>
@@ -28,7 +30,11 @@ export default function Home() {
           <Link href="/study" className={buttonVariants({ size: "lg" })}>Bắt đầu luyện tập</Link>
           <Link href="/import" className={buttonVariants({ variant: "outline", size: "lg" })}>Nhập câu hỏi</Link>
           <Link href="/history" className={buttonVariants({ variant: "ghost", size: "lg" })}>Lịch sử học</Link>
+          <Link href="/notes" className={buttonVariants({ variant: "ghost", size: "lg" })}>Câu đã note</Link>
+          <a href="/quizforge-mau-import.txt" download className={buttonVariants({ variant: "ghost", size: "lg" })}>Tải mẫu TXT</a>
+          <a href="/quizforge-mau-import.pdf" download className={buttonVariants({ variant: "ghost", size: "lg" })}>Xem mẫu PDF</a>
         </div>
+        <HomeWorkspace />
         <section className="mt-20 grid gap-4 md:grid-cols-3">
           {steps.map(([number, title, description]) => (
             <article key={number} className="border-t border-border pt-5">

@@ -1,0 +1,22 @@
+BỘ CÂU HỎI MẪU QUIZFORGE
+
+CHƯƠNG 1: TỔNG QUAN INTERNET
+
+1. Internet là gì?
+A. Mạng kết nối các mạng máy tính trên toàn cầu
+B. Một ứng dụng nhắn tin
+C. Một loại máy tính
+D. Một trình duyệt web
+Đáp án: A
+
+2. Giao thức HTTP chủ yếu dùng để làm gì?
+A. Gửi email
+B. Truyền tải nội dung web
+C. Lưu trữ tệp cục bộ
+D. Quét virus
+Đáp án: B
+
+GHI CHÚ:
+- Mỗi câu bắt đầu bằng số thứ tự, ví dụ: 1. hoặc Câu 1.
+- Đáp án dùng A., B., C., D. trên từng dòng.
+- Viết “Đáp án: A” sau câu hỏi, hoặc tập hợp đáp án ở cuối tài liệu.

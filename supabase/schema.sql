@@ -30,9 +30,12 @@ create table if not exists public.question_progress (
   correct_count integer not null default 0,
   incorrect_count integer not null default 0,
   bookmarked boolean not null default false,
+  note text,
   last_answered_at timestamptz,
   primary key (user_id, question_set_id, question_id)
 );
+
+alter table public.question_progress add column if not exists note text;
 
 alter table public.profiles enable row level security;
 alter table public.question_sets enable row level security;

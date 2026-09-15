@@ -11,7 +11,7 @@ import type { ParseResult } from "@/types/parser";
 
 export function ImportWorkspace() {
   const [input, setInput] = useState(""); const [result, setResult] = useState<ParseResult | null>(null); const [fileName, setFileName] = useState(""); const [importError, setImportError] = useState(""); const previewRef = useRef<HTMLElement>(null);
-  const commit = (parsed: ParseResult) => { setResult(parsed); sessionStorage.setItem("quizforge-import-result", JSON.stringify(parsed)); window.setTimeout(() => previewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })); };
+  const commit = (parsed: ParseResult) => { setResult(parsed); sessionStorage.setItem("quizforge-import-result", JSON.stringify(parsed)); sessionStorage.removeItem("quizforge-current-set-id"); window.setTimeout(() => previewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })); };
   const parse = (value = input) => commit(parseQuestions(value));
   const onFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; if (!file) return;
