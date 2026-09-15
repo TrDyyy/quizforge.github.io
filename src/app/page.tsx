@@ -9,6 +9,7 @@ const steps = [
   ["02", "Kiểm tra & sửa", "Preview kết quả parse và xử lý warning trước khi học."],
   ["03", "Làm quiz", "Luyện tập, đánh dấu và ôn lại các câu sai."],
 ];
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export default function Home() {
   return (
@@ -31,8 +32,9 @@ export default function Home() {
           <Link href="/import" className={buttonVariants({ variant: "outline", size: "lg" })}>Nhập câu hỏi</Link>
           <Link href="/history" className={buttonVariants({ variant: "ghost", size: "lg" })}>Lịch sử học</Link>
           <Link href="/notes" className={buttonVariants({ variant: "ghost", size: "lg" })}>Câu đã note</Link>
-          <a href="/quizforge-mau-import.txt" download className={buttonVariants({ variant: "ghost", size: "lg" })}>Tải mẫu TXT</a>
-          <a href="/quizforge-mau-import.pdf" download className={buttonVariants({ variant: "ghost", size: "lg" })}>Xem mẫu PDF</a>
+          <Link href="/bookmarks" className={buttonVariants({ variant: "ghost", size: "lg" })}>Câu đã đánh dấu</Link>
+          <a href={`${basePath}/quizforge-mau-import.txt`} download className={buttonVariants({ variant: "ghost", size: "lg" })}>Tải mẫu TXT</a>
+          <a href={`${basePath}/quizforge-mau-import.pdf`} download className={buttonVariants({ variant: "ghost", size: "lg" })}>Xem mẫu PDF</a>
         </div>
         <HomeWorkspace />
         <section className="mt-20 grid gap-4 md:grid-cols-3">

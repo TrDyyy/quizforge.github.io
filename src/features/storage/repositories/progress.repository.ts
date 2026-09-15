@@ -20,5 +20,10 @@ export const progressRepository = {
     });
     await db.questionProgress.bulkPut(records);
   },
-  async incorrect(questionSetId: string) { return db.questionProgress.where("questionSetId").equals(questionSetId).filter((item) => item.incorrectCount > item.correctCount).toArray(); },
+  async clearNote(questionId: string) {
+    const prior = await db.questionProgress.get(questionId);
+    if (!prior) return;
+    await db.questionProgress.put({ ...prior, note: undefined });
+  },
+  async incorrect(questionSetId: string) { return db.questionProgress.where("questionSetId").equals(questionSetId).filter((item) => item.incorrectCount > 0).toArray(); },
 };
