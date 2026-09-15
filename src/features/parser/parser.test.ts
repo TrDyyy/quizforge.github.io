@@ -15,4 +15,11 @@ describe("parseQuestions", () => {
     expect(result.questions[0].correctAnswers).toEqual(["B"]);
     expect(result.warnings[0].code).toBe("ANSWER_CONFLICT");
   });
+
+  it("keeps duplicate question numbers with distinct IDs and warnings", () => {
+    const result = parseQuestions("Câu 1. Câu đầu\nA. Một\nB. Hai\nĐáp án: A\n\nCâu 1. Câu khác\nA. Ba\nB. Bốn\nĐáp án: B");
+    expect(result.questions.map((question) => question.id)).toEqual(["question-1-1", "question-1-2"]);
+    expect(result.questions.map((question) => question.correctAnswers)).toEqual([["A"], ["B"]]);
+    expect(result.warnings.some((warning) => warning.code === "DUPLICATE_QUESTION_NUMBER")).toBe(true);
+  });
 });
