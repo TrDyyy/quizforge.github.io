@@ -7,7 +7,7 @@ QuizForge uses a browser client so it stays compatible with GitHub Pages static 
    - `http://localhost:3000/profile/`
    - Your final GitHub Pages URL, e.g. `https://your-name.github.io/quizforge/profile/`
 3. Use `/profile` to request a Magic Link.
-4. Keep `.env.local` local. Git ignores it; add the same public environment values to the GitHub Pages build configuration when deploying.
+4. Keep `.env.local` local. Git ignores it. In the GitHub repository, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` as Actions secrets; the Pages workflow reads them at build time.
 
 After signing in at `/profile`, choose **Đồng bộ cloud** to upload the device's question sets, completed sessions, learning progress and bookmarks. Download/merge sync is intentionally the next step, so local work is never silently overwritten.
 
