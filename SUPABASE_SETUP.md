@@ -9,6 +9,24 @@ QuizForge uses a browser client so it stays compatible with GitHub Pages static 
 3. Use `/profile` to request a Magic Link.
 4. Keep `.env.local` local. Git ignores it. In the GitHub repository, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` as Actions secrets; the Pages workflow reads them at build time.
 
-After signing in at `/profile`, choose **Đồng bộ cloud** to upload the device's question sets, completed sessions, learning progress and bookmarks. Download/merge sync is intentionally the next step, so local work is never silently overwritten.
+After signing in at `/profile`, choose **Đồng bộ cloud** to upload the device's question sets, completed sessions, learning progress and bookmarks. Choose **Tải từ cloud** on another device to merge those records back into IndexedDB. For conflicts, the newer question set wins; learning counts use the higher value and bookmarks are kept when either copy is bookmarked.
 
-RLS policies in the schema ensure a signed-in person only reads and writes their own profile, question sets, sessions and learning progress.
+## Admin and shared question sets
+
+The schema includes `user` and `admin` roles. Shared question sets are readable by everyone, including visitors who are not signed in. Only an admin can mark a set as public; this is enforced by Supabase RLS rather than only by the interface.
+
+1. Run the latest [schema.sql](./supabase/schema.sql), including when upgrading an existing project.
+2. Sign in once through `/profile` with the email that will be the admin. This creates its profile row.
+3. In SQL Editor, grant the role (replace the example email):
+
+```sql
+update public.profiles
+set role = 'admin'
+where id = (
+  select id from auth.users where email = 'admin@example.com'
+);
+```
+
+4. Reload `/profile`. The **Quản trị viên** section can publish any set stored on that device or remove one from the shared library.
+
+RLS policies ensure users only write their own profile data, sets, sessions and progress. Public sets are read-only to everyone except their admin owner.

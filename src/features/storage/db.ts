@@ -11,8 +11,17 @@ export class QuizForgeDB extends Dexie {
   settings!: EntityTable<Setting, "key">;
   constructor() {
     super("QuizForgeDB");
-    this.version(1).stores({ questionSets: "id, name, createdAt, updatedAt", settings: "key" });
-    this.version(2).stores({ questionSets: "id, name, createdAt, updatedAt", quizSessions: "id, questionSetId, status, startedAt, completedAt", questionProgress: "questionId, questionSetId, incorrectCount, correctCount, bookmarked, lastAnsweredAt", settings: "key" });
+    this.version(1).stores({
+      questionSets: "id, name, createdAt, updatedAt",
+      settings: "key",
+    });
+    this.version(2).stores({
+      questionSets: "id, name, createdAt, updatedAt",
+      quizSessions: "id, questionSetId, status, startedAt, completedAt",
+      questionProgress:
+        "questionId, questionSetId, incorrectCount, correctCount, bookmarked, lastAnsweredAt",
+      settings: "key",
+    });
   }
 }
 
