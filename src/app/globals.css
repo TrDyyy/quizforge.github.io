@@ -54,8 +54,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.56 0.15 258);
+  --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -65,7 +65,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.56 0.15 258);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -74,7 +74,7 @@
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: oklch(0.56 0.15 258);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
@@ -98,8 +98,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.72 0.12 258);
+  --primary-foreground: oklch(0.17 0.03 258);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -109,7 +109,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.72 0.12 258);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -134,9 +134,37 @@
   --source-ai: oklch(0.76 0.13 25);
 }
 
-[data-accent="teal"] { --primary: oklch(0.55 0.12 190); --primary-foreground: oklch(0.99 0 0); --ring: oklch(0.55 0.12 190); }
-[data-accent="amber"] { --primary: oklch(0.65 0.14 75); --primary-foreground: oklch(0.2 0.03 75); --ring: oklch(0.65 0.14 75); }
-[data-accent="rose"] { --primary: oklch(0.58 0.18 15); --primary-foreground: oklch(0.99 0 0); --ring: oklch(0.58 0.18 15); }
+[data-accent="teal"] {
+  --primary: oklch(0.57 0.12 165);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.57 0.12 165);
+  --sidebar-primary: oklch(0.57 0.12 165);
+}
+[data-accent="amber"] {
+  --primary: oklch(0.69 0.13 67);
+  --primary-foreground: oklch(0.2 0.04 67);
+  --ring: oklch(0.69 0.13 67);
+  --sidebar-primary: oklch(0.69 0.13 67);
+}
+[data-accent="rose"] {
+  --primary: oklch(0.6 0.16 355);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.6 0.16 355);
+  --sidebar-primary: oklch(0.6 0.16 355);
+}
+
+.dark[data-accent="teal"] {
+  --primary: oklch(0.73 0.12 165);
+  --primary-foreground: oklch(0.16 0.04 165);
+}
+.dark[data-accent="amber"] {
+  --primary: oklch(0.79 0.12 75);
+  --primary-foreground: oklch(0.19 0.04 75);
+}
+.dark[data-accent="rose"] {
+  --primary: oklch(0.73 0.14 355);
+  --primary-foreground: oklch(0.18 0.04 355);
+}
 
 @theme inline {
   --color-success: var(--success);
@@ -150,9 +178,68 @@
   --color-source-ai: var(--source-ai);
 }
 
-@keyframes aurora-drift { 0%, 100% { transform: translate3d(-5%, -3%, 0) scale(1); } 50% { transform: translate3d(5%, 3%, 0) scale(1.08); } }
-.aurora { animation: aurora-drift 24s ease-in-out infinite; background: radial-gradient(circle at 15% 20%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 38%), radial-gradient(circle at 80% 15%, color-mix(in oklab, var(--success) 12%, transparent), transparent 32%); }
-@media (prefers-reduced-motion: reduce) { .aurora { animation: none; } }
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(-5%, -3%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(5%, 3%, 0) scale(1.08);
+  }
+}
+.aurora {
+  animation: aurora-drift 24s ease-in-out infinite;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      color-mix(in oklab, var(--primary) 18%, transparent),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 80% 15%,
+      color-mix(in oklab, var(--success) 12%, transparent),
+      transparent 32%
+    );
+}
+@keyframes study-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--study-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-9px) rotate(var(--study-rotate, 0deg));
+  }
+}
+@keyframes study-wiggle {
+  0%,
+  100% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.03);
+  }
+}
+.learning-canvas {
+  background-color: color-mix(in oklab, var(--background) 93%, var(--primary));
+}
+.study-float {
+  --study-rotate: -3deg;
+  animation: study-float 5s ease-in-out infinite;
+}
+.study-float-slow {
+  animation: study-float 6.5s ease-in-out 600ms infinite;
+}
+.study-wiggle {
+  animation: study-wiggle 4.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .study-float,
+  .study-float-slow,
+  .study-wiggle {
+    animation: none;
+  }
+}
 
 @layer base {
   * {
