@@ -26,6 +26,29 @@ import {
 } from "@/features/sync/public-question-sets";
 import type { QuestionSet } from "@/types/question";
 
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="#4285F4"
+        d="M21.6 12.23c0-.71-.06-1.4-.19-2.07H12v3.92h5.38a4.6 4.6 0 0 1-2 3.02v2.54h3.24c1.9-1.75 2.98-4.33 2.98-7.41Z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.24-2.54c-.9.6-2.05.96-3.38.96-2.6 0-4.81-1.76-5.6-4.12H3.06v2.62A10 10 0 0 0 12 22Z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M6.4 13.87A6 6 0 0 1 6.08 12c0-.65.11-1.28.32-1.87V7.51H3.06A10 10 0 0 0 2 12c0 1.61.39 3.14 1.06 4.49l3.34-2.62Z"
+      />
+      <path
+        fill="#EA4335"
+        d="M12 6.01c1.47 0 2.79.51 3.83 1.5l2.87-2.88A9.63 9.63 0 0 0 12 2a10 10 0 0 0-8.94 5.51l3.34 2.62c.79-2.36 3-4.12 5.6-4.12Z"
+      />
+    </svg>
+  );
+}
+
 export function AuthProfile() {
   const [email, setEmail] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -56,11 +79,18 @@ export function AuthProfile() {
     const restore = window.setTimeout(() => {
       void loadAccount();
     });
+    const restoreFromHistory = (event: PageTransitionEvent) => {
+      if (!event.persisted) return;
+      setBusy(false);
+      void loadAccount();
+    };
     const { data } = supabase.auth.onAuthStateChange(() => {
       void loadAccount();
     });
+    window.addEventListener("pageshow", restoreFromHistory);
     return () => {
       window.clearTimeout(restore);
+      window.removeEventListener("pageshow", restoreFromHistory);
       data.subscription.unsubscribe();
     };
   }, []);
@@ -80,6 +110,22 @@ export function AuthProfile() {
         : "Đã gửi Magic Link. Hãy kiểm tra email để đăng nhập.",
     );
     setBusy(false);
+  };
+  const signInWithGoogle = async () => {
+    setBusy(true);
+    setMessage("");
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}${basePath}/profile/`,
+        queryParams: { prompt: "select_account" },
+      },
+    });
+    if (error) {
+      setMessage(`Không thể đăng nhập Google: ${error.message}`);
+      setBusy(false);
+    }
   };
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -196,6 +242,22 @@ export function AuthProfile() {
         </section>
       ) : (
         <section className="mt-7">
+          <Button
+            variant="outline"
+            size="lg"
+            className="w-full border-border bg-card text-foreground hover:border-primary/30 hover:bg-primary/5"
+            disabled={busy}
+            onClick={() => void signInWithGoogle()}
+          >
+            <GoogleIcon /> Tiếp tục với Google
+          </Button>
+          <div className="my-6 flex items-center gap-3" aria-hidden="true">
+            <span className="h-px flex-1 bg-border" />
+            <span className="text-xs font-medium uppercase tracking-[.14em] text-muted-foreground">
+              hoặc dùng Magic Link
+            </span>
+            <span className="h-px flex-1 bg-border" />
+          </div>
           <p className="text-muted-foreground">
             Nhập email để nhận Magic Link. Không cần tạo mật khẩu.
           </p>
