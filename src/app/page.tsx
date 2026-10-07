@@ -13,11 +13,7 @@ import { AccountBadge } from "@/components/profile/account-badge";
 import { HomeWorkspace } from "@/components/home/home-workspace";
 
 const steps = [
-  [
-    "01",
-    "Nhập tài liệu",
-    "Paste nội dung hoặc chọn tệp tài liệu có đáp án.",
-  ],
+  ["01", "Nhập tài liệu", "Paste nội dung hoặc chọn tệp tài liệu có đáp án."],
   [
     "02",
     "Kiểm tra & sửa câu hỏi",
@@ -56,8 +52,9 @@ export default function Home() {
               <span className="text-primary">làm nhiều nhớ lâu.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-              QuizForge giúp bạn tự tạo bộ câu hỏi từ tài liệu, luyện tập và ôn tập hiệu quả.
-              Chuẩn bị file tài liệu có đáp án, phần còn lại để QuizForge lo !!!.
+              QuizForge giúp bạn tự tạo bộ câu hỏi từ tài liệu, luyện tập và ôn
+              tập hiệu quả. Chuẩn bị file tài liệu có đáp án, phần còn lại để
+              QuizForge lo !!!.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/study" className={buttonVariants({ size: "lg" })}>
@@ -161,6 +158,17 @@ export default function Home() {
             </article>
           ))}
         </section>
+        <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-primary/15 py-7 text-sm text-muted-foreground">
+          <p>© 2026 QuizForge · Author: TrDyyy.</p>
+          <nav aria-label="Thông tin pháp lý" className="flex gap-4">
+            <Link href="/privacy" className="hover:text-primary">
+              Quyền riêng tư
+            </Link>
+            <Link href="/terms" className="hover:text-primary">
+              Điều khoản
+            </Link>
+          </nav>
+        </footer>
       </main>
     </div>
   );
