@@ -33,7 +33,9 @@ export function textItemsToLines(items: unknown[]) {
 
 export async function extractTextFromPdf(file: File) {
   const pdfjs = await import("pdfjs-dist/webpack.mjs");
-  const loadingTask = pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()) });
+  const loadingTask = pdfjs.getDocument({
+    data: new Uint8Array(await file.arrayBuffer()),
+  });
   const document = await loadingTask.promise;
   const pages: string[] = [];
   const pageCount = document.numPages;
@@ -50,7 +52,9 @@ export async function extractTextFromPdf(file: File) {
   }
   const text = pages.filter(Boolean).join("\n\n");
   if (text.replace(/\s/g, "").length < Math.max(30, pageCount * 12)) {
-    throw new Error("PDF này có vẻ là bản scan hoặc không có lớp chữ. Hiện QuizForge chưa OCR được ảnh; hãy dùng PDF có thể bôi chọn chữ, DOCX hoặc TXT.");
+    throw new Error(
+      "PDF này có vẻ là bản scan hoặc không có lớp chữ. Hiện QuizForge chưa OCR được ảnh; hãy dùng PDF có thể bôi chọn chữ, DOCX hoặc TXT.",
+    );
   }
   return { text, pageCount };
 }

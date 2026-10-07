@@ -98,7 +98,10 @@ export function ImportWorkspace() {
               render={<label htmlFor="question-file" />}
               nativeButton={false}
             >
-              <Upload /> {readingFile ? "Đang đọc file…" : "Chọn file PDF, DOCX, TXT, MD, CSV"}
+              <Upload />{" "}
+              {readingFile
+                ? "Đang đọc file…"
+                : "Chọn file PDF, DOCX, TXT, MD, CSV"}
             </Button>
             <input
               id="question-file"
@@ -153,9 +156,7 @@ export function ImportWorkspace() {
           <h2 className="font-semibold">Định dạng hỗ trợ</h2>
           <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
             <li>PDF có thể bôi chọn chữ, TXT, Markdown, DOCX và CSV.</li>
-            <li>
-              File được đọc ngay trong trình duyệt, không upload server.
-            </li>
+            <li>File được đọc ngay trong trình duyệt, không upload server.</li>
             <li>Đáp án inline hoặc answer key cuối tài liệu.</li>
             <li>PDF scan dạng ảnh chưa hỗ trợ OCR.</li>
           </ul>
